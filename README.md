@@ -1,6 +1,6 @@
 # NvimPad
 
-A lightweight GTK3 A floating multi-tab plain-text scratchpad for Hyprland/Omarchy with a Neovim-inspired Catppuccin Mocha interface for taking qicknotes.
+A lightweight GTK3 A floating multi-tab plain-text scratchpad for Hyprland/arch linux with a Neovim-inspired Catppuccin Mocha interface for taking qicknotes.
 
 <img width="649" height="426" alt="Image" src="https://github.com/user-attachments/assets/15d5facb-2bd7-4bbf-a56b-ee1c9883a9be" />
 
