@@ -1,25 +1,17 @@
 #!/usr/bin/env python3
-"""
-scratchpad — Neovim-aesthetic floating notes for Omarchy/Hyprland
-- Multi-tab: + to add, × to delete, named from first line
-- Auto-saves on every keystroke (debounced 400ms)
-- Restores all tabs on reopen
-- Catppuccin Mocha palette, JetBrains Mono, Neovim statusbar
-"""
-
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 from gi.repository import Gtk, Gdk, GLib
 import os, json, uuid
 
-# ── Paths ─────────────────────────────────────────────────────────────────────
+# Paths
 DATA_DIR   = os.path.expanduser("~/.local/share/scratchpad")
 NOTES_DIR  = os.path.join(DATA_DIR, "notes")
 STATE_FILE = os.path.join(DATA_DIR, "state.json")
 DEBOUNCE   = 400  # ms
 
-# ── Catppuccin Mocha palette ──────────────────────────────────────────────────
+# Catppuccin Mocha palette
 C = {
     "base":    "#1e1e2e",
     "mantle":  "#181825",
@@ -285,7 +277,7 @@ class Scratchpad(Gtk.Window):
         if not self._tabs:
             self._new_tab()
 
-    # ── Window setup ──────────────────────────────────────────────────────────
+    # Window setup 
 
     def _setup_window(self):
         self.set_default_size(660, 440)
@@ -301,7 +293,7 @@ class Scratchpad(Gtk.Window):
             Gdk.Screen.get_default(), p,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-    # ── UI construction ───────────────────────────────────────────────────────
+    # UI construction 
 
     def _build_ui(self):
         root = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -468,7 +460,7 @@ class Scratchpad(Gtk.Window):
             self._switch_tab(tab)
         return tab
 
-    # ── Line number gutter ───────────────────────────────────────────────────
+    # Line number gutter 
 
     def _update_gutter(self, tab):
         """Rewrite line numbers only when adding/removing a line requires it."""
@@ -567,7 +559,7 @@ class Scratchpad(Gtk.Window):
         else:
             self._refresh_tab_selection()
 
-    # ── Text change & saving ──────────────────────────────────────────────────
+    # Text change & saving 
 
     def _on_changed(self, tab):
         tab.modified = True
@@ -603,7 +595,7 @@ class Scratchpad(Gtk.Window):
             if tab.modified:
                 tab.save()
 
-    # ── Status bar ────────────────────────────────────────────────────────────
+    # Status bar
 
     def _update_status(self):
         if not self._active:
@@ -620,7 +612,7 @@ class Scratchpad(Gtk.Window):
         cur = tab.buf.get_iter_at_mark(tab.buf.get_insert())
         self._lbl_pos.set_text(f"{cur.get_line()+1}:{cur.get_line_offset()+1}")
 
-    # ── State persistence ─────────────────────────────────────────────────────
+    # State persistence 
 
     def _save_state(self):
         state = {
@@ -663,7 +655,7 @@ class Scratchpad(Gtk.Window):
         if self._tabs:
             self._switch_tab(restored_active or self._tabs[0])
 
-    # ── Input ─────────────────────────────────────────────────────────────────
+    # Input
 
     def _on_key(self, widget, event):
         ctrl = event.state & Gdk.ModifierType.CONTROL_MASK
@@ -683,7 +675,7 @@ class Scratchpad(Gtk.Window):
             return True
         return False
 
-    # ── Window drag ───────────────────────────────────────────────────────────
+    # Window drag
 
     def _drag_start(self, widget, event):
         if event.button == 1:
@@ -694,7 +686,7 @@ class Scratchpad(Gtk.Window):
             ox, oy, wx, wy = self._drag
             self.move(int(wx + event.x_root - ox), int(wy + event.y_root - oy))
 
-    # ── Quit ──────────────────────────────────────────────────────────────────
+    # Quit
 
     def _on_quit(self, widget, event):
         self._save_all()
