@@ -1,8 +1,8 @@
 # NvimPad
 
-A lightweight GTK3 scratchpad for Hyprland/Omarchy with a Neovim-inspired
-Catppuccin Mocha interface. for qicknotes
+A lightweight GTK3 A floating multi-tab plain-text scratchpad for Hyprland/Omarchy with a Neovim-inspired Catppuccin Mocha interface for taking qicknotes.
 
+<img width="649" height="426" alt="Image" src="https://github.com/user-attachments/assets/15d5facb-2bd7-4bbf-a56b-ee1c9883a9be" />
 
 ## Requirements
 
@@ -15,10 +15,10 @@ Catppuccin Mocha interface. for qicknotes
 From this project directory, run:
 
 ```bash
-bash ' install-scratchpad.sh'
+bash ' install-NvimPad.sh'
 ```
 
-The installer copies the application to `~/.local/bin/scratchpad`, creates a
+The installer copies the application to `~/.local/bin/nvimpad`, creates a
 desktop entry, and can add the Hyprland rule and keybinding.
 
 To update an existing installation after editing the source, run the installer
@@ -29,10 +29,10 @@ again.
 Use only one binding in your Hyprland configuration:
 
 ```ini
-bind = SUPER, N, exec, scratchpad
-windowrule = float on, match:class scratchpad
-windowrule = size 640 420, match:class scratchpad
-windowrule = center on, match:class scratchpad
+bind = SUPER, N, exec, nvimpad
+windowrule = float on, match:class nvimpad
+windowrule = size 640 420, match:class nvimpad
+windowrule = center on, match:class nvimpad
 ```
 
 Duplicate `SUPER + N` bindings launch more than one window.
@@ -41,6 +41,7 @@ Duplicate `SUPER + N` bindings launch more than one window.
 
 | Shortcut | Action |
 | --- | --- |
+| `Win+N`  | launch the nvimpad |
 | `Ctrl+S` | Save the active note now |
 | `Ctrl+Q` | Save all notes and close |
 | `Ctrl+T` | Create a tab |
@@ -53,7 +54,7 @@ Duplicate `SUPER + N` bindings launch more than one window.
 All data stays locally under:
 
 ```text
-~/.local/share/scratchpad/
+~/.local/share/nvimpad/
 ├── notes/       # One UTF-8 .txt file per note
 └── state.json   # Open-tab order and active tab
 ```
@@ -68,12 +69,12 @@ clean state file when it closes.
 Run directly from the repository with:
 
 ```bash
-python3 scratchpad.py
+python3 NvimPad.py
 ```
 
 Basic syntax checks:
 
 ```bash
-python3 -m py_compile scratchpad.py
-bash -n ' install-scratchpad.sh'
+python3 -m py_compile NvimPad.py
+bash -n ' install-NvimPad.sh'
 ```
